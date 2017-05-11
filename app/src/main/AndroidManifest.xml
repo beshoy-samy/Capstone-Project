@@ -21,8 +21,10 @@
             </intent-filter>
         </activity>
 
-
-
+        <provider
+            android:authorities="com.capstone.beshoy.newnews"
+            android:name=".data.ArticleProvider"
+            android:exported="false"/>
 
     </application>
 

@@ -10,16 +10,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ArticleDbHelper extends SQLiteOpenHelper {
 
-
-
-    public static final String LOG_TAG = ArticleDbHelper.class.getSimpleName();
-
     /** Name of the database file */
     private static final String DATABASE_NAME = "news.db";
 
     private static final int DATABASE_VERSION = 1;
 
-    private static final String CREATE_ARTICLES_TABLE = "CREATE TABLE "+ArticleContract.ArticleEntry.TABLE_NAME+
+    private static final String CREATE_ARTICLES_TABLE = "CREATE TABLE "+ ArticleContract.ArticleEntry.TABLE_NAME+
             " ("+ArticleContract.ArticleEntry.ARTICLE_NO+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             ArticleContract.ArticleEntry.COLUMN_ARTICLE_SOURCE+" VARCHAR(255), "+
             ArticleContract.ArticleEntry.COLUMN_ARTICLE_AUTHOR+" VARCHAR(255), "+
