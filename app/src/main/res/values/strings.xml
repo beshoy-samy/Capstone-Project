@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">New News</string>
+
+    <string-array name="news_sources_names">
+
+        <item>World</item>
+        <item>Al Jazeera English</item>
+        <item>BBC News</item>
+        <item>CNN</item>
+        <item>Google News</item>
+        <item>Sports</item>
+        <item>BBC Sport</item>
+        <item>Fox Sports</item>
+        <item>Football Italia</item>
+        <item>Business</item>
+        <item>Bloomberg</item>
+        <item>The Economist</item>
+        <item>Business Insider</item>
+        <item>Tech</item>
+        <item>Engadget</item>
+        <item>Recode</item>
+        <item>TechCrunch</item>
+        <item>Science</item>
+        <item>National Geographic</item>
+        <item>New Scientist</item>
+        <item>Other</item>
+        <item>MTV News</item>
+        <item>IGN</item>
+
+    </string-array>
+
+    <string-array name="news_sources_ids">
+
+        <item>0</item>
+        <item>al-jazeera-english</item>
+        <item>bbc-news</item>
+        <item>cnn</item>
+        <item>google-news</item>
+        <item>0</item>
+        <item>bbc-sport</item>
+        <item>fox-sports</item>
+        <item>football-italia</item>
+        <item>0</item>
+        <item>bloomberg</item>
+        <item>the-economist</item>
+        <item>business-insider</item>
+        <item>0</item>
+        <item>engadget</item>
+        <item>recode</item>
+        <item>techcrunch</item>
+        <item>0</item>
+        <item>national-geographic</item>
+        <item>new-scientist</item>
+        <item>0</item>
+        <item>mtv-news</item>
+        <item>ign</item>
+
+    </string-array>
+
+    <integer-array name="news_sources_drawables">
+        <item>0</item>
+        <item>@drawable/jazeera</item>
+        <item>@drawable/bbc</item>
+        <item>@drawable/cnn</item>
+        <item>@drawable/google_news</item>
+        <item>0</item>
+        <item>@drawable/bbc_sport</item>
+        <item>@drawable/fox_sports</item>
+        <item>@drawable/football_italia</item>
+        <item>0</item>
+        <item>@drawable/bloomberg</item>
+        <item>@drawable/economist</item>
+        <item>@drawable/business_insider</item>
+        <item>0</item>
+        <item>@drawable/engadget</item>
+        <item>@drawable/recode</item>
+        <item>@drawable/techcrunch</item>
+        <item>0</item>
+        <item>@drawable/national_geographic</item>
+        <item>@drawable/new_scientist</item>
+        <item>0</item>
+        <item>@drawable/mtv</item>
+        <item>@drawable/ign</item>
+    </integer-array>
+
+</resources>
