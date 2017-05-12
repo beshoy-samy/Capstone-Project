@@ -13,25 +13,33 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstone.beshoy.newnews.R;
+import com.capstone.beshoy.newnews.adapters.ArticlesRecyclerAdapter;
 import com.capstone.beshoy.newnews.background.FetchNews;
+import com.capstone.beshoy.newnews.classes.Article;
 import com.capstone.beshoy.newnews.data.ArticleContract.ArticleEntry;
+import com.capstone.beshoy.newnews.interfaces.ClickListener;
 import com.capstone.beshoy.newnews.interfaces.FetchingCallBack;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
-                                    , LoaderManager.LoaderCallbacks<Cursor>, FetchingCallBack{
+                                    , LoaderManager.LoaderCallbacks<Cursor>, FetchingCallBack, ClickListener{
 
     private String[] news_sources_titles;
     private String[] news_sources_ids;
@@ -46,6 +54,8 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
     private FetchingCallBack fetchingCallBack;
     private boolean initializeLoader = true;
     private int source_position = 1;
+    private RecyclerView articles_recycler;
+    private ArticlesRecyclerAdapter articlesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +74,11 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
                 , ContextCompat.getColor(mContext, R.color.colorAccent));
         swipeRefreshLayout.setOnRefreshListener(this);
         fetchNews = new FetchNews(mContext, fetchingCallBack);
+
+        articles_recycler = (RecyclerView) findViewById(R.id.news_recycler_view);
+        articles_recycler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        articlesAdapter = new ArticlesRecyclerAdapter(mContext);
+        articlesAdapter.setClickListener(this);
 
         ArrayList<IDrawerItem> drawerItems = new ArrayList<>();
         for (int i=0;i<news_sources_titles.length;i++) {
@@ -89,16 +104,17 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
                         if(!news_sources_ids[position].equals("0")){
-                            if(fetchNews != null){
-                                fetchNews = null;
-                                fetchNews = new FetchNews(mContext, fetchingCallBack);
-                            }
                             if(isNetworkAvailable()){
+                                if(fetchNews != null){
+                                    fetchNews = null;
+                                    fetchNews = new FetchNews(mContext, fetchingCallBack);
+                                }
                                 swipeRefreshLayout.setRefreshing(true);
                                 source_position = position;
                                 fetchNews.execute(news_sources_ids[position]);
                             }
                             else{
+                                swipeRefreshLayout.setRefreshing(true);
                                 Bundle bundle = new Bundle();
                                 bundle.putInt("source_position", position);
                                 if(initializeLoader){
@@ -125,8 +141,6 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
     }
-
-
 
 
     public boolean isNetworkAvailable() {
@@ -161,8 +175,12 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
-        Log.d("beshoy",data.getCount()+" retrieved");
+        ArrayList<Article> articlesList = getArticlesFromCursor(data);
+        articlesAdapter.setArticles(articlesList);
+        articles_recycler.setAdapter(articlesAdapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
+
 
     @Override
     public void onLoaderReset(android.content.Loader<Cursor> loader) {
@@ -179,6 +197,29 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
         else
             getLoaderManager().restartLoader(ARTICLE_LOADER, bundle, callbacks);
-        swipeRefreshLayout.setRefreshing(false);
     }
+
+    private ArrayList<Article> getArticlesFromCursor(Cursor data){
+        ArrayList<Article> articles = new ArrayList<>();
+        while (data.moveToNext()){
+            String source = data.getString(ArticleEntry.SOURCE_COLUMN_INDEX);
+            String author = data.getString(ArticleEntry.AUTHOR_COLUMN_INDEX);
+            String title = data.getString(ArticleEntry.TITLE_COLUMN_INDEX);
+            String description = data.getString(ArticleEntry.DESCRIPTION_COLUMN_INDEX);
+            String url = data.getString(ArticleEntry.URL_COLUMN_INDEX);
+            String image = data.getString(ArticleEntry.IMAGE_COLUMN_INDEX);
+            String date = data.getString(ArticleEntry.DATE_COLUMN_INDEX);
+            articles.add(new Article(source, author, title, description, url, image, date));
+        }
+        data.close();
+        return articles;
+    }
+
+
+    @Override
+    public void articleClicked(Article article) {
+        Log.d("beshoy","article: "+article.getTitle());
+    }
+
+
 }

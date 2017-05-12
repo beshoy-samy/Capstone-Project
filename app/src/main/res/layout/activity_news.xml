@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.capstone.beshoy.newnews.activities.NewsActivity">
+    tools:context="com.capstone.beshoy.newnews.activities.NewsActivity"
+    android:background="@color/light_gray">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -14,40 +15,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:clipToPadding="false" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/article_image"
-                android:padding="@dimen/padding_16dp"
-                android:id="@+id/article_main_image"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/article_main_title"
-                android:padding="@dimen/padding_16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/article_main_date"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:padding="@dimen/padding_16dp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/news_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:clipToPadding="false" />
-
-        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

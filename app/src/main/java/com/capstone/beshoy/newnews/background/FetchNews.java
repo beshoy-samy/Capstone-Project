@@ -97,6 +97,8 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
                 String url  = art.getString(ARTICLEURL);
                 String imageURL  = art.getString(ARTICLEIMAGE);
                 String publishedAT  = art.getString(PUBLISHEDAT);
+                if(!publishedAT.equals("null"))
+                    publishedAT = publishedAT.substring(0,publishedAT.indexOf("T"));
                 Article article = new Article(source, author, title, description, url, imageURL, publishedAT);
                 articles.add(article);
             }
@@ -133,8 +135,6 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
         String[] args = {""+source};
         int rowsDeleted = mContext.getContentResolver().delete(ArticleEntry.CONTENT_URI
                 , ArticleEntry.COLUMN_ARTICLE_SOURCE + " = ?", args);
-
-        Log.d("beshoy", rowsDeleted+" rows was deleted");
     }
 
 

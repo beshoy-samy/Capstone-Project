@@ -4,14 +4,15 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/margin_16dp">
 
     <ImageView
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/article_image_item"
         android:padding="@dimen/padding_16dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:id="@+id/article_image"
         android:contentDescription="@string/article_image"/>
 
@@ -25,14 +26,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/article_title"/>
+            android:id="@+id/article_title"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/article_date"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"/>
+            android:textColor="@color/secondary_text"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"/>
 
     </LinearLayout>
 

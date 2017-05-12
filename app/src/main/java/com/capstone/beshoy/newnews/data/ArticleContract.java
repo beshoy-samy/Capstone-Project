@@ -40,12 +40,16 @@ public class ArticleContract {
          */
         public final static String COLUMN_ARTICLE_SOURCE ="source";
 
+        public static final int SOURCE_COLUMN_INDEX = 0;
+
         /**
          * Author of the Article.
          *
          * Type: VARCHAR(255)
          */
         public final static String COLUMN_ARTICLE_AUTHOR = "author";
+
+        public static final int AUTHOR_COLUMN_INDEX = 1;
 
         /**
          * Title of the Article.
@@ -54,12 +58,16 @@ public class ArticleContract {
          */
         public final static String COLUMN_ARTICLE_TITLE = "title";
 
+        public static final int TITLE_COLUMN_INDEX = 2;
+
         /**
          * Description of the Article.
          *
          * Type: TEXT
          */
         public final static String COLUMN_ARTICLE_DESCRIPTION = "description";
+
+        public static final int DESCRIPTION_COLUMN_INDEX = 3;
 
         /**
          * URL of the Article.
@@ -68,6 +76,8 @@ public class ArticleContract {
          */
         public final static String COLUMN_ARTICLE_URL = "article_url";
 
+        public static final int URL_COLUMN_INDEX = 4;
+
         /**
          * IMAGE HEAD of the Article.
          *
@@ -75,12 +85,16 @@ public class ArticleContract {
          */
         public final static String COLUMN_ARTICLE_IMAGE = "image_url";
 
+        public static final int IMAGE_COLUMN_INDEX = 5;
+
         /**
          * DATE of the Article.
          *
          * Type: VARCHAR(255)
          */
         public final static String COLUMN_ARTICLE_DATE = "date";
+
+        public static final int DATE_COLUMN_INDEX = 6;
     }
 
 

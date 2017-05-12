@@ -1,10 +1,13 @@
 package com.capstone.beshoy.newnews.classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by bisho on 08-May-17.
  */
 
-public class Article {
+public class Article implements Parcelable{
 
     private String source;
     private String author;
@@ -24,20 +27,34 @@ public class Article {
         this.source = source;
     }
 
+    private Article(Parcel in){
+        source = in.readString();
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        articleURL = in.readString();
+        imageURL = in.readString();
+        publishedAt = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
+
     public String getSource() {
         return source;
     }
 
-    public void setSource(String source) {
-        this.source = source;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getTitle() {
@@ -52,31 +69,33 @@ public class Article {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getArticleURL() {
         return articleURL;
-    }
-
-    public void setArticleURL(String articleURL) {
-        this.articleURL = articleURL;
     }
 
     public String getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public String getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
+    @Override
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(source);
+        dest.writeString(author);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(articleURL);
+        dest.writeString(imageURL);
+        dest.writeString(publishedAt);
+    }
+
+
 }
