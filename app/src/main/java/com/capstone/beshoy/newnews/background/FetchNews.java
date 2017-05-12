@@ -1,12 +1,14 @@
 package com.capstone.beshoy.newnews.background;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.capstone.beshoy.newnews.R;
 import com.capstone.beshoy.newnews.classes.Article;
+import com.capstone.beshoy.newnews.data.ArticleContract.ArticleEntry;
+import com.capstone.beshoy.newnews.interfaces.FetchingCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +34,6 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
     private final String SORTBYTOP = "&sortBy=top";
     private final String APIKEY = "&APIKEY=0f8a2d21de334596aeaf0de769e108ec";
     private String[] sources_ids;
-    private SwipeRefreshLayout refreshLayout;
     private final String ARTICLES = "articles";
     private final String ARTICLESOURCE = "source";
     private final String ARTICLEAUTHOR = "author";
@@ -41,19 +42,14 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
     private final String ARTICLEURL = "url";
     private final String ARTICLEIMAGE = "urlToImage";
     private final String PUBLISHEDAT = "publishedAt";
+    private FetchingCallBack callBack;
 
-
-    public FetchNews(Context context, SwipeRefreshLayout swipeRefreshLayout) {
+    public FetchNews(Context context, FetchingCallBack fetchingCallBack) {
         this.mContext = context;
-        this.refreshLayout = swipeRefreshLayout;
+        this.callBack = fetchingCallBack;
         sources_ids = mContext.getResources().getStringArray(R.array.news_sources_ids);
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        refreshLayout.setRefreshing(true);
-    }
 
     @Override
     protected ArrayList<Article> doInBackground(String... params) {
@@ -75,7 +71,10 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
 
             JSONObject response = new JSONObject(builder.toString());
             urlConnection.disconnect();
-            return parseMyJson(response);
+            ArrayList<Article> articles = parseMyJson(response);
+            if(articles.size() != 0)
+                insertArticles(articles, source);
+            return articles;
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -109,8 +108,34 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
 
     @Override
     protected void onPostExecute(ArrayList<Article> articles) {
-        refreshLayout.setRefreshing(false);
-        Log.d("beshoy",articles.size()+"");
         super.onPostExecute(articles);
+        callBack.onFetchingFinished();
     }
+
+    private void insertArticles(ArrayList<Article> articles, String source){
+        deleteOldArticles(source);
+        for(Article article : articles){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_SOURCE, article.getSource());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_AUTHOR, article.getAuthor());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_TITLE, article.getTitle());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_DESCRIPTION, article.getDescription());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_URL, article.getArticleURL());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_IMAGE, article.getImageURL());
+            contentValues.put(ArticleEntry.COLUMN_ARTICLE_DATE, article.getPublishedAt());
+
+            mContext.getContentResolver().insert(ArticleEntry.CONTENT_URI, contentValues);
+        }
+
+    }
+
+    private void deleteOldArticles(String source){
+        String[] args = {""+source};
+        int rowsDeleted = mContext.getContentResolver().delete(ArticleEntry.CONTENT_URI
+                , ArticleEntry.COLUMN_ARTICLE_SOURCE + " = ?", args);
+
+        Log.d("beshoy", rowsDeleted+" rows was deleted");
+    }
+
+
 }

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">New News</string>
+    <string name="article_image">this is the article image</string>
+    <string name="no_internet_error">NO INTERNET AVAILABLE</string>
+    <string name="app_logo_description">this is the app logo</string>
 
     <string-array name="news_sources_names">
 
