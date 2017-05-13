@@ -32,8 +32,8 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
     private Context mContext;
     private final String MAINURL = "https://newsapi.org/v1/articles?source=";
     private final String SORTBYTOP = "&sortBy=top";
-    // get your api key from this api https://newsapi.org/ and add it here
-    private final String APIKEY = "";
+    // add your api key here for this api https://newsapi.org/
+    private final String APIKEY = "&APIKEY=0f8a2d21de334596aeaf0de769e108ec";
     private String[] sources_ids;
     private final String ARTICLES = "articles";
     private final String ARTICLESOURCE = "source";
@@ -134,7 +134,7 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
 
     private void deleteOldArticles(String source){
         String[] args = {""+source};
-        int rowsDeleted = mContext.getContentResolver().delete(ArticleEntry.CONTENT_URI
+        mContext.getContentResolver().delete(ArticleEntry.CONTENT_URI
                 , ArticleEntry.COLUMN_ARTICLE_SOURCE + " = ?", args);
     }
 

@@ -58,7 +58,6 @@ public class ArticlesRecyclerAdapter extends RecyclerView.Adapter<ArticlesRecycl
                 .load(article_image)
                 .error(R.drawable.image_error)
                 .into(holder.article_image);
-        Log.d("beshoy","date:"+article_date);
         holder.article_title.setText(article_title);
         if(!article_date.equals("null"))
             holder.article_date.setText(article_date);
