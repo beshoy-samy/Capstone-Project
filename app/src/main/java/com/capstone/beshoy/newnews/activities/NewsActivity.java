@@ -57,6 +57,7 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
     private int source_position = 1;
     private RecyclerView articles_recycler;
     private ArticlesRecyclerAdapter articlesAdapter;
+    public static final String ACTION_DATA_UPDATED = "com.capstone.beshoy.newnews.ACTION_DATA_UPDATED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +199,13 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
         else
             getLoaderManager().restartLoader(ARTICLE_LOADER, bundle, callbacks);
+        updateWidgets();
+    }
+
+    private void updateWidgets(){
+        Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED)
+                .setPackage(mContext.getPackageName());
+        mContext.sendBroadcast(dataUpdatedIntent);
     }
 
     private ArrayList<Article> getArticlesFromCursor(Cursor data){

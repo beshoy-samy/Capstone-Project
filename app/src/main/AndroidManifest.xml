@@ -24,7 +24,7 @@
         <provider
             android:name=".data.ArticleProvider"
             android:authorities="com.capstone.beshoy.newnews"
-            android:exported="true" />
+            android:exported="true"/>
 
         <activity android:name=".activities.ArticleDetailsActivity" />
 

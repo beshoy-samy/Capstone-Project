@@ -92,8 +92,10 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             e.printStackTrace();
         }
         views.setTextViewText(R.id.article_title, title);
-        if(!date.equals("null")){
-            date = date.substring(0, date.indexOf("T"));
+        if(date != null && !date.equals("null")){
+            int index = date.indexOf("T");
+            if(index != -1)
+                date = date.substring(0, index);
             views.setTextViewText(R.id.article_date, date);
         }
 
