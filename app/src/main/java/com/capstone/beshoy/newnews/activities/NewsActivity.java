@@ -3,6 +3,7 @@ package com.capstone.beshoy.newnews.activities;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -218,7 +219,9 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void articleClicked(Article article) {
-        Log.d("beshoy","article: "+article.getTitle());
+        Intent intent = new Intent(mContext, ArticleDetailsActivity.class);
+        intent.putExtra("article",article);
+        startActivity(intent);
     }
 
 

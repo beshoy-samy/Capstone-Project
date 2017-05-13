@@ -19,15 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.NewsActivity"/>
+        <activity android:name=".activities.NewsActivity" />
 
         <provider
             android:name=".data.ArticleProvider"
             android:authorities="com.capstone.beshoy.newnews"
             android:exported="false" />
 
-
+        <activity android:name=".activities.ArticleDetailsActivity"></activity>
     </application>
 
 </manifest>

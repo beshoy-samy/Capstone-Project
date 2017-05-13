@@ -3,6 +3,8 @@
     <string name="article_image">this is the article image</string>
     <string name="no_internet_error">NO INTERNET AVAILABLE</string>
     <string name="app_logo_description">this is the app logo</string>
+    <string name="share_button">this is a sharing button</string>
+    <string name="full_article"><u>full article</u></string>
 
     <string-array name="news_sources_names">
 
