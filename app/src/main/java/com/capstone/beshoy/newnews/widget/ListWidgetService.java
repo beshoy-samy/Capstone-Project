@@ -11,6 +11,7 @@ import android.widget.RemoteViewsService;
 import com.capstone.beshoy.newnews.R;
 import com.capstone.beshoy.newnews.classes.Article;
 import com.capstone.beshoy.newnews.data.ArticleContract.ArticleEntry;
+import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -89,6 +90,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                     .get();
             views.setImageViewBitmap(R.id.article_image, bitmap);
         } catch (IOException e) {
+            FirebaseCrash.report(e);
             e.printStackTrace();
         }
         views.setTextViewText(R.id.article_title, title);

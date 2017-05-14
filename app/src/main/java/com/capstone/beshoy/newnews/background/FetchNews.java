@@ -9,6 +9,7 @@ import com.capstone.beshoy.newnews.R;
 import com.capstone.beshoy.newnews.classes.Article;
 import com.capstone.beshoy.newnews.data.ArticleContract.ArticleEntry;
 import com.capstone.beshoy.newnews.interfaces.FetchingCallBack;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,6 +79,7 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
                 insertArticles(articles, source);
             return articles;
         } catch (IOException | JSONException e) {
+            FirebaseCrash.report(e);
             e.printStackTrace();
         }
 
@@ -105,6 +107,7 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
                 articles.add(article);
             }
         } catch (JSONException e) {
+            FirebaseCrash.report(e);
             e.printStackTrace();
         }
         return articles;

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "979408179165",
+    "firebase_url": "https://new-news-b750a.firebaseio.com",
+    "project_id": "new-news-b750a",
+    "storage_bucket": "new-news-b750a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979408179165:android:710b02c6bc84acc3",
+        "android_client_info": {
+          "package_name": "com.capstone.beshoy.newnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979408179165-i0fjnil230gjjeafcurceqmo6p3gomno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.beshoy.newnews",
+            "certificate_hash": "7ab2985a85fc2db94e98ec72bdbcd92f2b7f2c96"
+          }
+        },
+        {
+          "client_id": "979408179165-4u3bjt9ctq31tr9e9j8uh6k4msr2atbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhkUSjjrF4bMWkGWJ-b4yvEQVzIKYYSRs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979408179165-4u3bjt9ctq31tr9e9j8uh6k4msr2atbl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

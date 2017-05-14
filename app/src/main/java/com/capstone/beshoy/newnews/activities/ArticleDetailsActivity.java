@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.capstone.beshoy.newnews.R;
 import com.capstone.beshoy.newnews.classes.Article;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 public class ArticleDetailsActivity extends AppCompatActivity {
@@ -24,11 +27,12 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     private TextView article_source;
     private TextView full_article;
     private Article article;
-
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
+        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
 
         article_image = (ImageView) findViewById(R.id.article_image);
         share_article = (ImageButton) findViewById(R.id.share_article);
@@ -38,8 +42,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         article_author= (TextView) findViewById(R.id.article_author);
         article_source= (TextView) findViewById(R.id.article_source);
         full_article  = (TextView) findViewById(R.id.full_article);
-        article = getIntent().getExtras().getParcelable("article");
+        mAdView = (AdView) findViewById(R.id.adView);
 
+        article = getIntent().getExtras().getParcelable("article");
 
         Picasso.with(this)
                 .load(article.getImageURL())
@@ -71,6 +76,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         article_author.setText(author);
         String source = "Source: "+article.getSource();
         article_source.setText(source);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
     }

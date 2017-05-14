@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 /**
  * Created by bisho on 11-May-17.
  */
@@ -47,6 +49,7 @@ public class ArticleProvider extends ContentProvider {
         long rowID = database.insert(ArticleContract.ArticleEntry.TABLE_NAME, null, values);
         if (rowID == -1) {
             Log.e("Project Error", "Failed to insert row for " + uri);
+            FirebaseCrash.log("Failed to insert row for " + uri);
             return null;
         }
         return ContentUris.withAppendedId(uri,rowID);
