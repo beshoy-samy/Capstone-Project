@@ -34,7 +34,7 @@ public class FetchNews extends AsyncTask<String,Void,ArrayList<Article>> {
     private final String MAINURL = "https://newsapi.org/v1/articles?source=";
     private final String SORTBYTOP = "&sortBy=top";
     // add your api key here for this api https://newsapi.org/
-    private final String APIKEYVAL = "0f8a2d21de334596aeaf0de769e108ec";
+    private final String APIKEYVAL = "";
     private final String APIKEY = "&apiKey=";
     private String[] sources_ids;
     private final String ARTICLES = "articles";
